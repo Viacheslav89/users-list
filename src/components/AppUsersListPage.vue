@@ -20,7 +20,10 @@
 
     <main class="main">
       <ul class="main__list">
-        <li class="main__item" v-for="user of getUsersList(searchUserCity, searchUserName)">
+        <li
+          class="main__item"
+          v-for="user of getUsersList(searchUserCity, searchUserName)"
+        >
           <AppUser :user="user" />
         </li>
       </ul>
@@ -31,8 +34,7 @@
 <script setup lang="ts">
 import AppUser from "./AppUser.vue";
 import { useUsers } from "./../composables/useUsers";
-import { onMounted, watch } from "vue";
-import type { User, Address, Geo, Company } from "./../type";
+import type { User } from "./../type";
 
 const { fetchUsers, usersList, searchUserCity, searchUserName } = useUsers();
 
@@ -43,17 +45,16 @@ const getUsersList = (city: string, name: string) => {
     return usersList.value;
   } else {
     return usersList.value.filter((user: User) => {
-       return user.address.city.includes(city) && user.name.includes(name);
-    })
+      return user.address.city.includes(city) && user.name.includes(name);
+    });
   }
 };
-
-
 </script>
 
 <style scoped lang="scss">
 .users-list {
   width: 800px;
+  min-height: 1200px;
   background-color: rgb(170, 172, 172);
   margin: 0 auto;
 }
@@ -90,12 +91,15 @@ const getUsersList = (city: string, name: string) => {
     width: 760px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     flex-wrap: wrap;
+    gap: 15px;
   }
 
   &__item {
     list-style: none;
+    margin: 0;
+    padding: 0;
   }
 }
 </style>
